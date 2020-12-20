@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,7 +20,9 @@ public class StudentController {
 
     @GetMapping("/students")
     public String getStudents(Model model){
-        model.addAttribute("students",studentService.getStudents());
+        List<Student> students = studentService.getStudents();
+
+        model.addAttribute("students",students);
         return "students";
     }
 

@@ -4,18 +4,23 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 @Entity
-
 public class Student {
     @Id
     private Integer id;
+
     private String name;
+
     private String lastName;
+
     private String major;
+
     private String degreeProgram;
+
     private String updatedBy;
-    @DateTimeFormat(pattern = "YYYY-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date updateOn;
 
     public Student(Integer id, String name, String lastName, String major, String degreeProgram, String updatedBy, Date updateOn) {

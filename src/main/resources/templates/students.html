@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="webjars/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Students</title>
 </head>
 <body>
-   List Of Students
+<h2>List Of Students</h2>
+<div class="container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">Add Student</button>
+<table class="table table-striped">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>LastName</td>
+        <td>major</td>
+        <td>degreeProgram</td>
+        <td>updateOn</td>
+        <td>updatedBy</td>
+        <td>Edit</td>
+        <td>Delete</td>
+
+
+    </tr>
+
+    <tr th:each = "student:${students}" >
+        <td th:text= "${student.id}"></td>
+        <td th:text = "${student.name}"></td>
+        <td th:text= "${student.lastName}"></td>
+        <td th:text= "${student.major}"></td>
+        <td th:text = "${student.degreeProgram}"></td>
+        <td th:text = "${student.updatedBy}">updatedBy</td>
+        <td th:text = "${student.updateOn}">updateOn</td>
+        <td><a class = "btn btn-warning">Edit</a></td>
+        <td><a class = "btn btn-danger">Delete</a></td>
+
+    </tr>
+</table>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form th:action="@{/addNew}", method="post">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="IdAdd" class="col-form-label">Id:</label>
+                        <input type="text" class="form-control" id="IdAdd" name="Id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-form-label">lastName:</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName">
+                </div>
+                <div class="form-group">
+                    <label for="major" class="col-form-label">major:</label>
+                    <input type="text" class="form-control" id="major" name="major">
+                </div>
+                <div class="form-group">
+                    <label for="degreeProgram" class="col-form-label">degreeProgram:</label>
+                    <input type="text" class="form-control" id="degreeProgram" name="degreeProgram">
+                </div>
+                <div class="form-group">
+                    <label for="updatedBy" class="col-form-label">updatedBy:</label>
+                    <input type="text" class="form-control" id="updatedBy" name="updatedBy">
+                </div>
+                <div class="form-group">
+                    <label for="updateOn" class="col-form-label">updateOn:</label>
+                    <input type="text" class="form-control" id="updateOn" name="updateOn">
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="Submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
 </body>
-</html>
+<html/>
