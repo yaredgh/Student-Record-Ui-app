@@ -33,8 +33,8 @@
         <td th:text= "${student.lastName}"></td>
         <td th:text= "${student.major}"></td>
         <td th:text = "${student.degreeProgram}"></td>
-        <td th:text = "${student.updatedBy}">updatedBy</td>
         <td th:text = "${student.updateOn}">updateOn</td>
+        <td th:text = "${student.updatedBy}">updatedBy</td>
         <td><a class = "btn btn-warning">Edit</a></td>
         <td><a class = "btn btn-danger">Delete</a></td>
 
@@ -74,12 +74,12 @@
                     <input type="text" class="form-control" id="degreeProgram" name="degreeProgram">
                 </div>
                 <div class="form-group">
-                    <label for="updatedBy" class="col-form-label">updatedBy:</label>
-                    <input type="text" class="form-control" id="updatedBy" name="updatedBy">
-                </div>
-                <div class="form-group">
                     <label for="updateOn" class="col-form-label">updateOn:</label>
                     <input type="text" class="form-control" id="updateOn" name="updateOn">
+                </div>
+                <div class="form-group">
+                    <label for="updatedBy" class="col-form-label">updatedBy:</label>
+                    <input type="text" class="form-control" id="updatedBy" name="updatedBy">
                 </div>
 
 

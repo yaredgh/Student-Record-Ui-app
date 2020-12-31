@@ -23,14 +23,15 @@ public class Student {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date updateOn;
 
-    public Student(Integer id, String name, String lastName, String major, String degreeProgram, String updatedBy, Date updateOn) {
+    public Student(Integer id, String name, String lastName, String major, String degreeProgram,Date updateOn, String updatedBy) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.major = major;
         this.degreeProgram = degreeProgram;
-        this.updatedBy = updatedBy;
         this.updateOn = updateOn;
+        this.updatedBy = updatedBy;
+
     }
 
     public Student() {
