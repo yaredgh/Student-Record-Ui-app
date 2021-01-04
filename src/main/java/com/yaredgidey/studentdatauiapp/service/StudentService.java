@@ -16,7 +16,7 @@ public class StudentService {
     public List<Student> getStudents(){
        return (List<Student>) studentRepository.findAll();
     }
-    public Optional <Student> getStudentById(Integer id){
+    public Optional<Student> getStudentById(Integer id){
         return studentRepository.findById(id);
     }
     public void addStudent(Student student){

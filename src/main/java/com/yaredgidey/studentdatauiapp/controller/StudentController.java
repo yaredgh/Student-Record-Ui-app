@@ -26,9 +26,9 @@ public class StudentController {
 
     @GetMapping("/student")
     @ResponseBody
-    public Optional<Student> getStudentById(Integer id, Model model){
-
-        return studentService.getStudentById(id);
+    public String  getStudentById(Integer id, Model model){
+        model.addAttribute(studentService.getStudentById(id));
+        return " ";
     }
 
     @RequestMapping(value = "/save",method = {RequestMethod.POST, RequestMethod.PUT})
@@ -36,9 +36,21 @@ public class StudentController {
         studentService.updateStudent(student);
         return "redirect:/students";
     }
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateStudent(@ModelAttribute("student") Student student, HttpServletRequest request) {
-        studentService.updateStudent(student);
+    public String updateStudent(@RequestParam("Id") Integer Id, @ModelAttribute("student") Student student,HttpServletRequest request ) {
+              Student st = new Student();
+               if(studentService.getStudentById(Id).isPresent()){
+                     st = studentService.getStudentById(Id).get();
+                   st.setId(student.getId());
+                   st.setName(student.getName());
+                   st.setLastName(student.getLastName());
+                   st.setMajor(student.getMajor());
+                   st.setDegreeProgram(student.getDegreeProgram());
+                   st.setUpdateOn(student.getUpdateOn());
+                   st.setUpdatedBy(student.getUpdatedBy());
+               }
+         studentService.updateStudent(st);
 
         return "redirect:/students";
 
@@ -49,8 +61,8 @@ public class StudentController {
         return "redirect:/students";
     }
 
-    @RequestMapping(value = "/delete",method = {RequestMethod.DELETE, RequestMethod.PUT,RequestMethod.GET})
-    public  String deleteStudent(Integer id){
+    @RequestMapping(value = "/delete/{Id}",method = {RequestMethod.DELETE, RequestMethod.PUT,RequestMethod.GET})
+    public  String deleteStudent(@PathVariable(value = "Id") Integer id){
         studentService.deleteStudent(id);
         return "redirect:/students";
     }

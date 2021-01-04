@@ -35,8 +35,9 @@
         <td th:text = "${student.degreeProgram}"></td>
         <td th:text = "${student.updateOn}">updateOn</td>
         <td th:text = "${student.updatedBy}">updatedBy</td>
-        <td><a class = "btn btn-warning">Edit</a></td>
-        <td><a class = "btn btn-danger">Delete</a></td>
+<!--        <td><a th:href="@{'/update/{Id}'(Id=${student.id})}"class = "btn btn-warning">Edit</a></td>-->
+        <td><button type="button" class = "btn btn-warning"data-toggle="modal" data-target="#EditModal" data-whatever="@mdo">Edit</button></td>
+        <td><a th:href="@{'/delete/{Id}'(Id=${student.id})}" class = "btn btn-danger">Delete</a></td>
 
     </tr>
 </table>
@@ -55,31 +56,31 @@
 
                     <div class="form-group">
                         <label for="IdAdd" class="col-form-label">Id:</label>
-                        <input type="text" class="form-control" id="IdAdd" name="Id">
+                        <input type="text" class="form-control"  name="Id">
                     </div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">name:</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control"  name="name">
                     </div>
                 <div class="form-group">
                     <label for="lastName" class="col-form-label">lastName:</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName">
+                    <input type="text" class="form-control"  name="lastName">
                 </div>
                 <div class="form-group">
                     <label for="major" class="col-form-label">major:</label>
-                    <input type="text" class="form-control" id="major" name="major">
+                    <input type="text" class="form-control"  name="major">
                 </div>
                 <div class="form-group">
                     <label for="degreeProgram" class="col-form-label">degreeProgram:</label>
-                    <input type="text" class="form-control" id="degreeProgram" name="degreeProgram">
+                    <input type="text" class="form-control"name="degreeProgram">
                 </div>
                 <div class="form-group">
                     <label for="updateOn" class="col-form-label">updateOn:</label>
-                    <input type="text" class="form-control" id="updateOn" name="updateOn">
+                    <input type="text" class="form-control"  name="updateOn">
                 </div>
                 <div class="form-group">
                     <label for="updatedBy" class="col-form-label">updatedBy:</label>
-                    <input type="text" class="form-control" id="updatedBy" name="updatedBy">
+                    <input type="text" class="form-control"  name="updatedBy">
                 </div>
 
 
@@ -90,6 +91,52 @@
             </div>
         </div>
     </div>
+    </form>
+</div>
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form th:action="@{/update}", method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="IdAdd" class="col-form-label">Id:</label>
+                        <input type="text" class="form-control" id="IdAdd" name="Id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="col-form-label">lastName:</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="major" class="col-form-label">major:</label>
+                        <input type="text" class="form-control" id="major" name="major">
+                    </div>
+                    <div class="form-group">
+                        <label for="degreeProgram" class="col-form-label">degreeProgram:</label>
+                        <input type="text" class="form-control" id="degreeProgram" name="degreeProgram">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateOn" class="col-form-label">updateOn:</label>
+                        <input type="text" class="form-control" id="updateOn" name="updateOn">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatedBy" class="col-form-label">updatedBy:</label>
+                        <input type="text" class="form-control" id="updatedBy" name="updatedBy">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="Submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
