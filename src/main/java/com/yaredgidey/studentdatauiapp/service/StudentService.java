@@ -28,4 +28,10 @@ public class StudentService {
     public void deleteStudent(Integer id){
         studentRepository.deleteById(id);
     }
+    public List<Student>listAll(String keyword){
+        if(keyword != null){
+            return studentRepository.search(keyword);
+        }
+        return  studentRepository.findAll();
+    }
 }

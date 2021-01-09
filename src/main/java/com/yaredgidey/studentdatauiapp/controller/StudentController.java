@@ -3,6 +3,7 @@ package com.yaredgidey.studentdatauiapp.controller;
 import com.yaredgidey.studentdatauiapp.model.Student;
 import com.yaredgidey.studentdatauiapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,14 @@ public class StudentController {
         return "redirect:/students";
 
     }
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    public String searchStudent(Model model ,@Param("keyword") String keyword){
+        List<Student> students = studentService.listAll(keyword);
+        model.addAttribute("students",students);
+        model.addAttribute("keyword", keyword);
+        return "search";
+    }
+
     @RequestMapping(value = "/addNew",method = {RequestMethod.POST, RequestMethod.PUT,RequestMethod.GET})
     public String addStudent(Student student){
         studentService.addStudent(student);
@@ -66,5 +75,6 @@ public class StudentController {
         studentService.deleteStudent(id);
         return "redirect:/students";
     }
+
 
 }
