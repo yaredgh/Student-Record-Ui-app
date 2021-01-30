@@ -51,6 +51,7 @@ public class StudentController {
                    st.setUpdateOn(student.getUpdateOn());
                    st.setUpdatedBy(student.getUpdatedBy());
                }
+               System.out.println("");
          studentService.updateStudent(st);
 
         return "redirect:/students";
