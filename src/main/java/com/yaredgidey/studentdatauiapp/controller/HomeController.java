@@ -24,7 +24,7 @@ public class HomeController {
     public HomeController() {
     }
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"/", "/index", "/home"})
     public String goHome() {
         return "home";
     }
