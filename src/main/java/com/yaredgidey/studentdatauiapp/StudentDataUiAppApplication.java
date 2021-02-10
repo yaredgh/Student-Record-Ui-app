@@ -3,7 +3,6 @@ package com.yaredgidey.studentdatauiapp;
 import com.yaredgidey.studentdatauiapp.model.ERole;
 import com.yaredgidey.studentdatauiapp.model.Role;
 import com.yaredgidey.studentdatauiapp.model.User;
-import com.yaredgidey.studentdatauiapp.repo.UserRepo;
 import com.yaredgidey.studentdatauiapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,13 +39,15 @@ public class StudentDataUiAppApplication implements CommandLineRunner  {
         admin.setEmail("admin@admin.com");
         admin.setName("Admin");
         admin.setLastName("Admin");
-        Set<Role> userRoles = new HashSet<>();
-        Role role1 = new Role();
-        role1.setName(ERole.ROLE_ADMIN);
-        userRoles.add(role1);
-        admin.setRoles(userRoles);
+        userService.createAdmin(admin);
 
-        userService.createUser(admin);
+        User user = new User();
+        user.setName("user1");
+        user.setLastName("userL");
+        user.setEmail("user@gmil.com");
+        user.setPassword(passwordEncoder().encode("user"));
+        user.setUsername("user");
+        userService.save(user);
 
     }
 }

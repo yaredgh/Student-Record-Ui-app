@@ -17,15 +17,14 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right" sec:authorize="!isFullyAuthenticated()">
-            <li><a  href="#"><span class="glyphicon glyphicon-user fontawesome-lock"></span> Sign Up</a></li>
+            <li><a  href="/signUp"><span class="glyphicon glyphicon-user fontawesome-lock"></span> Sign Up</a></li>
             <li><a  href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
-        <div class="nav navbar-nav navbar-right" sec:authorize="isFullyAuthenticated()">
-            <ul>
-                <li class="nav-item" >Welcome, <span sec:authentication="name"></span></li>
+
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isFullyAuthenticated()">
+                <li class="nav-item" ><a  class="nav-link" >Welcome,<span  sec:authentication="name"></span></a></li>
                 <li class="nav-item" ><a class="nav-link" th:href="@{/logout}" methods="post"><span class="glyphicon glyphicon-log-out"></span> LogOut</a></li>
             </ul>
-        </div>
     </div>
 </nav>
 

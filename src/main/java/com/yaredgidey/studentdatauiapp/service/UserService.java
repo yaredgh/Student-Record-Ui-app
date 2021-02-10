@@ -17,5 +17,5 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    User createUser(User user) throws Exception;
+    User createAdmin(User user) ;
 }

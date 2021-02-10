@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
+    <script type="text/javascript" src="webjars/jquery/3.0.0/jquery.min.js"></script>
+<!--    <script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+<!--    <link href="webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>-->
     <title>Students</title>
-    <div layout:replace="/fragments/headers.html :: My_header"></div>
+
 </head>
 <body>
+<div layout:replace="/fragments/headers.html :: My_header"></div>
 <div layout:replace="/fragments/navbar.html :: My_navbar"></div>
 <div class="container">
     <h2>List Of Students jhktgkltuituit</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">Add Student</button>
+    <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo" sec:authorize="hasAuthority('ROLE_ADMIN')">Add Student</button>
+    <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#creatAdmin" data-whatever="@mdo" sec:authorize="hasAuthority('ROLE_ADMIN')">Add Admin</button>
+
     <div style="float: right;">
         <form th:action="@{/search}">
             Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
@@ -27,8 +35,8 @@
         <td>degreeProgram</td>
         <td>updateOn</td>
         <td>updatedBy</td>
-        <td>Edit</td>
-        <td>Delete</td>
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')"> Edit</td>
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')">Delete</td>
 
 
     </tr>
@@ -42,8 +50,8 @@
         <td th:text = "${student.updateOn}">updateOn</td>
         <td th:text = "${student.updatedBy}">updatedBy</td>
 <!--        <td><a th:href="@{'/update/{Id}'(Id=${student.id})}"class = "btn btn-warning">Edit</a></td>-->
-        <td><button type="button" class = "btn btn-warning"data-toggle="modal" data-target="#EditModal" data-whatever="@mdo">Edit</button></td>
-        <td><a th:href="@{'/delete/{Id}'(Id=${student.id})}" class = "btn btn-danger">Delete</a></td>
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')"><button type="button" class = "btn btn-warning"data-toggle="modal" data-target="#EditModal" data-whatever="@mdo">Edit</button></td>
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{'/delete/{Id}'(Id=${student.id})}" class = "btn btn-danger">Delete</a></td>
 
     </tr>
 </table>
@@ -135,6 +143,49 @@
                         <input type="text" class="form-control" id="updatedBy" name="updatedBy">
                     </div>
 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="Submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="creatAdmin" tabindex="-1" role="dialog" aria-labelledby="creatAdmin" aria-hidden="true">
+
+    <form th:action="@{/creatAdmin}" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+<!--                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="name"  class="col-form-label">name:</label>
+                        <input type="text" class="form-control"  name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="col-form-label">lastName:</label>
+                        <input type="text" class="form-control"  name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-form-label">user name:</label>
+                        <input type="text" class="form-control"  name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">password:</label>
+                        <input type="password" class="form-control"name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-form-label">email:</label>
+                        <input type="text" class="form-control"  name="email" required>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

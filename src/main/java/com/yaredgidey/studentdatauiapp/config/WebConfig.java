@@ -30,12 +30,12 @@ public class WebConfig  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/index", "/home").permitAll()
+                .antMatchers("/","/index", "/home","/signUp").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/students", true)
+                .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me")

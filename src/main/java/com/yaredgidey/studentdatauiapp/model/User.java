@@ -10,12 +10,12 @@ import java.util.Set;
 @Entity
 public class User {
 
-        @Id
+    @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long Id;
 
         @NotEmpty(message = "Password must not be blank.")
-        @Size(min = 8, max = 15, message = "Password must be between 8 to 15 Characters.")
+        @Size(min = 3, max = 15, message = "Password must be between 8 to 15 Characters.")
         private String password;
         @NotEmpty(message = "Name must not be blank.")
         @Size(min = 4, max = 15, message = "Name must be between 4 to 15 Characters.")
@@ -51,9 +51,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Long Id() {
-            return Id;
-        }
         public void seId(Long Id) {
             this.Id = Id;
         }
@@ -95,4 +92,5 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
