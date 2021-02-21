@@ -3,6 +3,7 @@ package com.yaredgidey.studentdatauiapp.controller;
 import com.yaredgidey.studentdatauiapp.model.Student;
 import com.yaredgidey.studentdatauiapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +20,9 @@ public class StudentController {
 
     @GetMapping("/students")
     public String getStudents(Model model){
-        List<Student> students = studentService.getStudents();
-
-        model.addAttribute("students",students);
-        return "students";
+//        List<Student> students = studentService.getStudents();
+//        model.addAttribute("students",students);
+        return findPaginated(1,"Id" , "asc", model);
     }
 
     @GetMapping("/student")
@@ -76,6 +76,25 @@ public class StudentController {
         studentService.deleteStudent(id);
         return "redirect:/students";
     }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo ,
+                                @RequestParam(value = "sortField") String sortField,
+                                @RequestParam(value = "sortDir") String sortDir,
+                                Model model){
+        int pageSize = 5;
+        Page<Student> page = studentService.findPaginated(pageNo,pageSize,sortField,sortDir);
+        List<Student> studentList = page.getContent();
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+        model.addAttribute("reverseSortDir" ,sortDir.equals("asc") ? "desc" : "asc" );
+        model.addAttribute("listOfStudents" , studentList);
+        return "students";
+    }
+
 
 
 }

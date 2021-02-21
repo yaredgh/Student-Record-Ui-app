@@ -28,20 +28,48 @@
 
 <table class="table table-striped">
     <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>LastName</td>
-        <td>major</td>
-        <td>degreeProgram</td>
-        <td>updateOn</td>
-        <td>updatedBy</td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=Id&sortDir=' + ${reverseSortDir}}">
+            Id
+            </a>
+        </td>
+        <td>
+           <a th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+               name
+           </a>
+        </td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
+            LastName
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=major&sortDir=' + ${reverseSortDir}}">
+            major
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=degreeProgram&sortDir=' + ${reverseSortDir}}">
+            degreeProgram
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=updateOn&sortDir=' + ${reverseSortDir}}">
+            updateOn
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=updatedBy&sortDir=' + ${reverseSortDir}}">
+            updatedBy
+            </a>
+        </td>
         <td sec:authorize="hasAuthority('ROLE_ADMIN')"> Edit</td>
         <td sec:authorize="hasAuthority('ROLE_ADMIN')">Delete</td>
 
 
     </tr>
-
-    <tr th:each = "student:${students}" >
+<tbody>
+    <tr th:each = "student:${listOfStudents}" >
         <td th:text= "${student.id}"></td>
         <td th:text = "${student.name}"></td>
         <td th:text= "${student.lastName}"></td>
@@ -54,14 +82,37 @@
         <td sec:authorize="hasAuthority('ROLE_ADMIN')"><a th:href="@{'/delete/{Id}'(Id=${student.id})}" class = "btn btn-danger">Delete</a></td>
 
     </tr>
+</tbody>
 </table>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+                <span th:each="i:${#numbers.sequence(1,totalPages)}">
+                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]] </span> &nbsp;&nbsp;
+                </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages }" th:href="@{'/page/ ' + ${currentPage + 1} +'?sortField=' + ${sortField} +'&sortDir=' +${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages }" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} +'&sortDir=' +${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form th:action="@{/addNew}", method="post">
+    <form th:action="@{/addNew}"  method="post">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <!--                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>-->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -108,10 +159,15 @@
     </form>
 </div>
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form th:action="@{/update}", method="post">
+    <form th:action="@{/update}" method="post">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
+                <div class="modal-header">
+                    <!--                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body">
 
                     <div class="form-group">

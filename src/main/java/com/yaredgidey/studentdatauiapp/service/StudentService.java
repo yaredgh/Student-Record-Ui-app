@@ -3,6 +3,10 @@ package com.yaredgidey.studentdatauiapp.service;
 import com.yaredgidey.studentdatauiapp.model.Student;
 import com.yaredgidey.studentdatauiapp.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +18,7 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public List<Student> getStudents(){
-       return (List<Student>) studentRepository.findAll();
+       return  studentRepository.findAll();
     }
     public Optional<Student> getStudentById(Integer id){
         return studentRepository.findById(id);
@@ -33,5 +37,13 @@ public class StudentService {
             return studentRepository.search(keyword);
         }
         return  studentRepository.findAll();
+    }
+    public Page<Student> findPaginated(int pageNumber, int pageSize, String sortField, String sortDirection){
+
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortField).ascending():
+        Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber -1,pageSize,sort);
+        return this.studentRepository.findAll(pageable);
     }
 }
