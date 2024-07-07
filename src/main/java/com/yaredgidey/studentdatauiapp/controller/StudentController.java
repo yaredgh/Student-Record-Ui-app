@@ -65,7 +65,7 @@ public class StudentController {
         return "search";
     }
 
-    @RequestMapping(value = "/addNew",method = {RequestMethod.POST, RequestMethod.PUT,RequestMethod.GET})
+    @PostMapping(value = "/addNew")
     public String addStudent(Student student){
         studentService.addStudent(student);
         return "redirect:/students";

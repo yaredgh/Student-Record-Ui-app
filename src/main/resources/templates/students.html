@@ -11,8 +11,8 @@
 
 </head>
 <body>
-<div layout:replace="/fragments/headers.html :: My_header"></div>
-<div layout:replace="/fragments/navbar.html :: My_navbar"></div>
+<div layout:replace="fragments/headers.html :: My_header"></div>
+<div layout:replace="fragments/navbar.html :: My_navbar"></div>
 <div class="container">
     <h2>List Of Students jhktgkltuituit</h2>
     <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" data-whatever="@mdo" sec:authorize="hasAuthority('ROLE_ADMIN')">Add Student</button>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="form-group">
                     <label for="updateOn" class="col-form-label">updateOn:</label>
-                    <input type="text" class="form-control"  name="updateOn">
+                    <input type="text" class="form-control"  name="updateOn" placeholder="yyyy-mm-dd">
                 </div>
                 <div class="form-group">
                     <label for="updatedBy" class="col-form-label">updatedBy:</label>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="form-group">
                         <label for="updateOn" class="col-form-label">updateOn:</label>
-                        <input type="text" class="form-control" id="updateOn" name="updateOn">
+                        <input type="text" class="form-control" id="updateOn" name="updateOn" placeholder="yyyy-mm-dd">
                     </div>
                     <div class="form-group">
                         <label for="updatedBy" class="col-form-label">updatedBy:</label>
@@ -252,6 +252,6 @@
         </div>
     </form>
 </div>
-<div layout:replace="/fragments/footer.html :: My_footer"></div>"
+<div layout:replace="fragments/footer.html :: My_footer"></div>"
 </body>
 <html/>

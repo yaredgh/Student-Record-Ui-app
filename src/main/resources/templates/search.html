@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-  <div layout:replace="/fragments/headers.html :: My_header"></div>
+  <div layout:replace="fragments/headers.html :: My_header"></div>
     <title>Search</title>
 </head>
 <body>
-<div layout:replace="/fragments/navbar.html :: My_navbar"></div>
+<div layout:replace="fragments/navbar.html :: My_navbar"></div>
 
 <div style="float: right;">
     <form th:action="@{/search}">
@@ -93,6 +93,6 @@
         </div>
     </form>
 </div>
-<div layout:replace="/fragments/footer.html :: My_footer"></div>
+<div layout:replace="fragments/footer.html :: My_footer"></div>
 </body>
 </html>
