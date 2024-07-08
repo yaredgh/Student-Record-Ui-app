@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                git 'https://github.com/your-repo/your-project.git'
+                git 'https://github.com/yaredgh/Student-Record-Ui-app.git'
             }
         }
 
@@ -39,10 +39,10 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    def app = docker.build("your-docker-repo/your-app:${env.BUILD_NUMBER}")
+                    def app = docker.build("yaredgidey/cicd:tagname:${env.BUILD_NUMBER}")
 
                     // Push Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', '34070370-6077-41e8-9f70-9aa79fa5b2fe') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
