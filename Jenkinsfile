@@ -44,43 +44,43 @@ pipeline {
             }
         }
 
-        stage('Docker Build & Publish') {
-            steps {
-                script {
-                    // Build Docker image
-                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
-
-                    // Push Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Deploy the application (e.g., to Kubernetes, ECS, etc.)
-                // This example assumes a simple deployment step
-                sh 'echo "Deploying application..."'
-                // Add your deployment scripts/commands here
-            }
-        }
-    }
-
-    post {
-        always {
-            // Clean workspace after build
-            cleanWs()
-        }
-        success {
-            // Notify of successful build (e.g., via email, Slack, etc.)
-            echo 'Build successful!'
-        }
-        failure {
-            // Notify of failed build (e.g., via email, Slack, etc.)
-            echo 'Build failed!'
-        }
-    }
+//         stage('Docker Build & Publish') {
+//             steps {
+//                 script {
+//                     // Build Docker image
+//                     def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
+//
+//                     // Push Docker image to Docker Hub
+//                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+//                         app.push("${env.BUILD_NUMBER}")
+//                         app.push("latest")
+//                     }
+//                 }
+//             }
+//         }
+//
+//         stage('Deploy') {
+//             steps {
+//                 // Deploy the application (e.g., to Kubernetes, ECS, etc.)
+//                 // This example assumes a simple deployment step
+//                 sh 'echo "Deploying application..."'
+//                 // Add your deployment scripts/commands here
+//             }
+//         }
+//     }
+//
+//     post {
+//         always {
+//             // Clean workspace after build
+//             cleanWs()
+//         }
+//         success {
+//             // Notify of successful build (e.g., via email, Slack, etc.)
+//             echo 'Build successful!'
+//         }
+//         failure {
+//             // Notify of failed build (e.g., via email, Slack, etc.)
+//             echo 'Build failed!'
+//         }
+//     }
 }
