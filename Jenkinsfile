@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        PATH = "/usr/local/bin:$PATH"
         APP_NAME = 'Student-Record-Ui-app'
         // Set Maven home to the configured Maven tool in Jenkins
         MAVEN_HOME = tool 'Maven3'
