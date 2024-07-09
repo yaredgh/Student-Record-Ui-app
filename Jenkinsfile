@@ -7,6 +7,7 @@ pipeline {
         MAVEN_HOME = tool 'Maven3'
         // Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = '34070370-6077-41e8-9f70-9aa79fa5b2fe'
+        DOCKER_CONFIG = "${env.HOME}/.docker"
 
     }
 
