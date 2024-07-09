@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     environment {
+        APP_NAME = 'Student-Record-Ui-app'
         // Set Maven home to the configured Maven tool in Jenkins
         MAVEN_HOME = tool 'Maven3'
         // Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = '34070370-6077-41e8-9f70-9aa79fa5b2fe'
+
     }
 
     stages {
@@ -44,20 +46,20 @@ pipeline {
             }
         }
 
-//         stage('Docker Build & Publish') {
-//             steps {
-//                 script {
-//                     // Build Docker image
-//                     def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
-//
-//                     // Push Docker image to Docker Hub
-//                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-//                         app.push("${env.BUILD_NUMBER}")
-//                         app.push("latest")
-//                     }
-//                 }
-//             }
-//         }
+        stage('Docker Build & Publish') {
+            steps {
+                script {
+                    // Build Docker image
+                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
+
+                    // Push Docker image to Docker Hub
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                }
+            }
+        }
 //
 //         stage('Deploy') {
 //             steps {
