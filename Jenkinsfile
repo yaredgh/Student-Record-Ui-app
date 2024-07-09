@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        PATH+EXTRA = "/usr/local/bin"
         APP_NAME = 'Student-Record-Ui-app'
         // Set Maven home to the configured Maven tool in Jenkins
         MAVEN_HOME = tool 'Maven3'
@@ -48,19 +47,18 @@ pipeline {
         }
 
         stage('Docker Build & Publish') {
-            steps {
-                script {
-                    // Build Docker image
-                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
-
-                    // Push Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                    steps {
+                        withEnv(["PATH+EXTRA=/usr/local/bin"]) {
+                            script {
+                                docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
+                                    app.push("${env.BUILD_NUMBER}")
+                                    app.push("latest")
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
 //
 //         stage('Deploy') {
 //             steps {
