@@ -82,5 +82,5 @@ pipeline {
 //             // Notify of failed build (e.g., via email, Slack, etc.)
 //             echo 'Build failed!'
 //         }
-//     }
+    }
 }
