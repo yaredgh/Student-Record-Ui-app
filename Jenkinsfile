@@ -2,11 +2,20 @@ pipeline {
     agent any
 
     environment {
-        // Set any environment variables if needed
-        MAVEN_HOME = tool 'Maven3' // Assumes Maven is configured in Jenkins
+        // Set Maven home to the configured Maven tool in Jenkins
+        MAVEN_HOME = tool 'Maven3'
+        // Docker Hub credentials ID
+        DOCKER_HUB_CREDENTIALS = '34070370-6077-41e8-9f70-9aa79fa5b2fe'
     }
 
     stages {
+        stage('cleanws') {
+             steps {
+                  // Clean workspace
+                  cleanWs();
+              }
+         }
+
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
@@ -39,10 +48,10 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    def app = docker.build("yaredgidey/cicd:tagname:${env.BUILD_NUMBER}")
+                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
 
                     // Push Docker image to Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', '34070370-6077-41e8-9f70-9aa79fa5b2fe') {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }

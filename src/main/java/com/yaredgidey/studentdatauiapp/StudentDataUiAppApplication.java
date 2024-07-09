@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.security.SecureRandom;
@@ -17,6 +18,9 @@ import java.util.Set;
 
 @SpringBootApplication
 public class StudentDataUiAppApplication implements CommandLineRunner  {
+
+    @Autowired
+    private Environment env;
     private static final String SALT = "salt";
     @Autowired
     UserService userService;
