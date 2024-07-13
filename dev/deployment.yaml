@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: student-record-ui-app
+  namespace: argocd
   labels:
     app: student-record-ui-app
 spec:
