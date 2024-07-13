@@ -12,7 +12,7 @@ spec:
     path: dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: student-record-ui-app
+    namespace: argocd
 
   syncPolicy:
     syncOptions:
