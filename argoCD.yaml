@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: Student-Record-Ui-app
-  namespace: Student-Record-Ui-app
+  name: student-record-ui-app
+  namespace: student-record-ui-app
 spec:
   project: default
 
@@ -12,7 +12,7 @@ spec:
     path: dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: Student-Record-Ui-app
+    namespace: student-record-ui-app
 
   syncPolicy:
     syncOptions:
