@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-record-ui-app
+  labels:
+    app: student-record-ui-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: student-record-ui-app
+  template:
+    metadata:
+      labels:
+        app: student-record-ui-app
+    spec:
+      containers:
+        - name: student-record-ui-app-container
+          image: yaredgidey/cicd:22
+          ports:
+            - containerPort: 8080

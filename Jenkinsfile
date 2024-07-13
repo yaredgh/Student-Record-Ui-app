@@ -60,29 +60,12 @@ pipeline {
                         }
                     }
                 }
-//
-//         stage('Deploy') {
-//             steps {
-//                 // Deploy the application (e.g., to Kubernetes, ECS, etc.)
-//                 // This example assumes a simple deployment step
-//                 sh 'echo "Deploying application..."'
-//                 // Add your deployment scripts/commands here
-//             }
-//         }
-//     }
-//
-//     post {
-//         always {
-//             // Clean workspace after build
-//             cleanWs()
-//         }
-//         success {
-//             // Notify of successful build (e.g., via email, Slack, etc.)
-//             echo 'Build successful!'
-//         }
-//         failure {
-//             // Notify of failed build (e.g., via email, Slack, etc.)
-//             echo 'Build failed!'
-//         }
-    }
+
+
+            post {
+                always {
+                    // Clean up the workspace after the build
+                    cleanWs()
+                }
+            }
 }

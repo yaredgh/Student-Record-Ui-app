@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: Student-Record-Ui-app
+  namespace: Student-Record-Ui-app
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/yaredgh/Student-Record-Ui-app.git
+    targetRevision: HEAD
+    path: deployment
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: Student-Record-Ui-app
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
