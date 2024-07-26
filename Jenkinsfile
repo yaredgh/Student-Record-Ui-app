@@ -7,7 +7,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = '34070370-6077-41e8-9f70-9aa79fa5b2fe'
         DOCKER_CONFIG = "${env.HOME}/.docker"
         DOCKER_IMAGE = 'yaredgidey/cicd'
-        DEPLOYMENT_FILE = "deployment.yaml"
+        DEPLOYMENT_FILE = "dev/deployment.yaml"
     }
 
     stages {
