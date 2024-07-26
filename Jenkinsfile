@@ -57,22 +57,32 @@ pipeline {
             }
         }
 
-        stage('Update Deployment File') {
-            steps {
-                script {
-                    try {
-                        sh """
-                        # For macOS
-                        sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
-                        # For Linux (comment out the macOS version above and use this line if on Linux)
-                        # sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
-                        """
-                    } catch (Exception e) {
-                        error "Failed to update deployment file: ${e.message}"
-                    }
-                }
-            }
-        }
+     stage('Update Deployment File') {
+         steps {
+             script {
+                 try {
+                     // List files in the directory to check if deployment.yaml is present
+                     sh 'ls -la dev/'
+
+                     // Print the file contents before modification
+                     sh 'cat dev/deployment.yaml'
+
+                     // Update the deployment file with the new Docker image
+                     sh """
+                     # For macOS
+                     sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                     # For Linux (comment out the macOS version above and use this line if on Linux)
+                     # sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                     """
+
+                     // Print the file contents after modification
+                     sh 'cat dev/deployment.yaml'
+                 } catch (Exception e) {
+                     error "Failed to update deployment file: ${e.message}"
+                 }
+             }
+         }
+     }
 
 //         stage('Deploy to Kubernetes') {
 //             steps {
