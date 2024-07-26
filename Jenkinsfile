@@ -78,7 +78,7 @@ pipeline {
                      git config user.name "yaredgh"
                      git add "dev/deployment.yaml"
                      git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
-                     git push origin main
+                     git push origin master
 
                  } catch (Exception e) {
                      error "Failed to update deployment file: ${e.message}"
