@@ -74,20 +74,20 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    try {
-                        sh """
-                        kubectl apply -f ${DEPLOYMENT_FILE}
-                        """
-                    } catch (Exception e) {
-                        error "Kubernetes Deployment failed: ${e.message}"
-                    }
-                }
-            }
-        }
-    }
+//         stage('Deploy to Kubernetes') {
+//             steps {
+//                 script {
+//                     try {
+//                         sh """
+//                         kubectl apply -f ${DEPLOYMENT_FILE}
+//                         """
+//                     } catch (Exception e) {
+//                         error "Kubernetes Deployment failed: ${e.message}"
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
     post {
         always {
