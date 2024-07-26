@@ -77,6 +77,12 @@ pipeline {
 
                      // Print the file contents after modification
                      sh 'cat dev/deployment.yaml'
+                     git config user.email "yghidey@mum.edu"
+                     git config user.name "yaredgh"
+                     git add ${DEPLOYMENT_FILE}
+                     git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
+                     git push origin main
+                     """
                  } catch (Exception e) {
                      error "Failed to update deployment file: ${e.message}"
                  }
