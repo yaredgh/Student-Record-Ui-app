@@ -61,17 +61,17 @@ pipeline {
         }
 
         stage('Update Deployment File') {
-                    steps {
-                        script {
-                            sh """
-                            # For macOS
-                            sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
-                            # For Linux (comment out the macOS version above and use this line if on Linux)
-                            # sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
-                            """
-                        }
-                    }
+            steps {
+                script {
+                   sh """
+                                      # For macOS
+                                      sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
+                                      # For Linux (comment out the macOS version above and use this line if on Linux)
+                                      # sed -i 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' ${DEPLOYMENT_FILE}
+                                      """
                 }
+            }
+        }
 
 //         stage('Deploy to Kubernetes') {
 //             steps {
