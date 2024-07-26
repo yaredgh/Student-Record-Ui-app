@@ -76,7 +76,7 @@ pipeline {
                      """
                      git config user.email "yghidey@mum.edu"
                      git config user.name "yaredgh"
-                     git add ${DEPLOYMENT_FILE}
+                     git add "dev/deployment.yaml"
                      git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
                      git push origin main
 
