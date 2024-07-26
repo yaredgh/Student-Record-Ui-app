@@ -8,6 +8,8 @@ pipeline {
         // Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = '34070370-6077-41e8-9f70-9aa79fa5b2fe'
         DOCKER_CONFIG = "${env.HOME}/.docker"
+        DOCKER_IMAGE= 'yaredgidey/cicd:'"${env.BUILD_NUMBER}"
+        DEPLOYMENT_FILE = "deployment.yaml"
 
     }
 
@@ -52,11 +54,22 @@ pipeline {
                         withEnv(["PATH+EXTRA=/usr/local/bin"]) {
                             script {
                                 docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
-                                    def app = docker.build("yaredgidey/cicd:${env.BUILD_NUMBER}")
+                                    def app = docker.build("${DOCKER_IMAGE}${env.BUILD_NUMBER}")
                                     app.push("${env.BUILD_NUMBER}")
                                     app.push("latest")
                                 }
                             }
+                        }
+                    }
+                }
+
+         stage('Update Deployment File') {
+                    steps {
+                        script {
+                            // Update the deployment file with the new Docker image
+                            sh """
+                            sed -i 's|image: .*|image: ${DOCKER_IMAGE}|' ${DEPLOYMENT_FILE}
+                            """
                         }
                     }
                 }
