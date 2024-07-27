@@ -57,32 +57,40 @@ pipeline {
             }
         }
 
-     stage('Update Deployment File') {
-         steps {
-             script {
-                 try {
-                     // List files in the directory to check if deployment.yaml is present
-                     sh 'ls -la dev/'
+    stage('Update Deployment File') {
+        steps {
+            script {
+                try {
+                    // List files in the directory to check if deployment.yaml is present
+                    sh 'ls -la dev/'
 
-                     // Print the file contents before modification
-                     sh 'cat dev/deployment.yaml'
+                    // Print the file contents before modification
+                    sh 'cat dev/deployment.yaml'
 
-                     // Update the deployment file with the new Docker image
+                    // Update the deployment file with the new Docker image
+                    sh """
+                    sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                    """
 
-                     sed -i  's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                    // Git configuration and pushing changes
+                    sh """
+                    git config user.email "yghidey@mum.edu"
+                    git config user.name "yaredgh"
+                    git add dev/deployment.yaml
+                    git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
+                    git push origin master
+                    """
 
-                     git config user.email "yghidey@mum.edu"
-                     git config user.name "yaredgh"
-                     git add "dev/deployment.yaml"
-                     git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
-                     git push origin master
+                    // Print the file contents after modification
+                    sh 'cat dev/deployment.yaml'
 
-                 } catch (Exception e) {
-                     error "Failed to update deployment file: ${e.message}"
-                 }
-             }
-         }
-     }
+                } catch (Exception e) {
+                    error "Failed to update deployment file: ${e.message}"
+                }
+            }
+        }
+    }
+
 
 //         stage('Deploy to Kubernetes') {
 //             steps {
