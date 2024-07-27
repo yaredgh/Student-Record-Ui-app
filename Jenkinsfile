@@ -8,6 +8,7 @@ pipeline {
         DOCKER_CONFIG = "${env.HOME}/.docker"
         DOCKER_IMAGE = 'yaredgidey/cicd'
         DEPLOYMENT_FILE = "dev/deployment.yaml"
+        GITHUB_TOKEN_ID = '59310ca2-7295-4570-a47c-82b37329c4d7'
     }
 
     stages {
@@ -19,7 +20,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/yaredgh/Student-Record-Ui-app.git'
+                  git credentialsId: GITHUB_TOKEN_ID, url: 'https://github.com/yaredgh/Student-Record-Ui-app.git'
             }
         }
 
@@ -61,29 +62,23 @@ pipeline {
         steps {
             script {
                 try {
-                    // List files in the directory to check if deployment.yaml is present
                     sh 'ls -la dev/'
+                     sh 'cat dev/deployment.yaml'
 
-                    // Print the file contents before modification
-                    sh 'cat dev/deployment.yaml'
+                      sh """
+                      sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                       """
 
-                    // Update the deployment file with the new Docker image
-                    sh """
-                    sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
-                    """
-
-                    // Git configuration and pushing changes
-                    sh """
-                    git config user.email "yghidey@mum.edu"
-                    git config user.name "yaredgh"
-                    git add dev/deployment.yaml
-                    git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
-                    git push origin master
-                    """
-
-                    // Print the file contents after modification
-                    sh 'cat dev/deployment.yaml'
-
+                       withCredentials([string(credentialsId: GITHUB_TOKEN_ID, variable: 'GITHUB_TOKEN')]) {
+                        sh """
+                        git config user.email "yghidey@mum.edu"
+                        git config user.name "yaredgh"
+                        git add dev/deployment.yaml
+                        git commit -m "Update deployment.yaml with new image tag ${env.BUILD_NUMBER}"
+                        git push https://${GITHUB_TOKEN}@github.com/yaredgh/Student-Record-Ui-app.git master
+                         """
+                       }
+                  sh 'cat dev/deployment.yaml'
                 } catch (Exception e) {
                     error "Failed to update deployment file: ${e.message}"
                 }
