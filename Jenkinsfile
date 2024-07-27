@@ -69,7 +69,7 @@ pipeline {
 
                      // Update the deployment file with the new Docker image
 
-                     sed -i '' 's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
+                     sed -i  's|image: .*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|' dev/deployment.yaml
 
                      git config user.email "yghidey@mum.edu"
                      git config user.name "yaredgh"
