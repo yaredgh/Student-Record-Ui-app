@@ -1,19 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-mysql-access
+  name: allow-mysql
   namespace: argocd
 spec:
   podSelector:
     matchLabels:
-      app: student-record-ui-app
+      app: mysql
   policyTypes:
     - Ingress
   ingress:
     - from:
-        - podSelector:
-            matchLabels:
-              app: student-record-ui-app
+        - podSelector: {}
       ports:
         - protocol: TCP
           port: 3306
