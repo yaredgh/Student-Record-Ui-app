@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysqldb
   namespace: argocd
   labels:
-    app: mysql
+    app: mysqldb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: mysqldb
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysqldb
     spec:
       containers:
-        - name: mysql
+        - name: mysqldb
           image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -36,12 +36,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysqldb
   namespace: argocd
 spec:
   ports:
     - port: 3306
       targetPort: 3306
   selector:
-    app: mysql
+    app: mysqldb
   type: ClusterIP
