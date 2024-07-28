@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: mysql
+      app: student-record-ui-app
   policyTypes:
     - Ingress
   ingress:
