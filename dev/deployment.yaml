@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: student-record-ui-app-container
-          image: yaredgidey/cicd:19
+          image: yaredgidey/cicd:20
           ports:
             - containerPort: 8080
