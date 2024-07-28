@@ -7,8 +7,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/studentdatadb?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=${MYSQLDB_USER}
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/studentdatadb
       - SPRING_DATASOURCE_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
@@ -26,7 +25,7 @@ services:
       - MYSQLDB_ROOT_PASSWORD =${MYSQLDB_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQLDB_DATABASE}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
